@@ -16,7 +16,7 @@ def set_wallpaper(image_path: str) -> None:
 
 def get_wallpaper() -> str:
     PICTURES_DIR = Path.home() / 'Pictures'
-    wallpapers = list(PICTURES_DIR.glob('*.jpg'))
+    wallpapers = list(PICTURES_DIR.glob('*.jpg')) + list(PICTURES_DIR.glob('*.jpeg')) + list(PICTURES_DIR.glob('*.png'))
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         for i, v in enumerate(wallpapers):
