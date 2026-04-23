@@ -19,7 +19,7 @@ def set_wallpaper(image_path: str) -> None:
             "WallpaperStyle",
             0,
             winreg.REG_SZ,
-            "3"  # 0: Center, 1: Tile, 2: Stretch, 3: Fit, 4: Fill
+            "1"  # 0: Center, 1: Fit, 2: Stretch, 3: Stretch, 4: Fit, 5: Fit
         )
         winreg.SetValueEx(
             key,
