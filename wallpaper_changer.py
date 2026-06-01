@@ -3,6 +3,7 @@ import winreg
 import os
 from pathlib import Path
 
+
 def set_wallpaper(image_path: str) -> None:
     SPI_SETDESKWALLPAPER = 20
     SPIF_UPDATEINIFILE = 0x01
