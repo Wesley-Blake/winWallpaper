@@ -39,22 +39,25 @@ def set_wallpaper(image_path: str) -> None:
     if not result:
         raise Exception("Failed to set wallpaper")
 
+
 def rand_wallpaper() -> str:
     PICTURES_DIR = Path.home() / 'Pictures'
-    wallpapers = list(
-        PICTURES_DIR.glob('*.jpg')) + \
-        list(PICTURES_DIR.glob('*.jpeg')) + \
-        list(PICTURES_DIR.glob('*.png')
+    wallpapers = (
+        list(PICTURES_DIR.glob('*.jpg'))
+        + list(PICTURES_DIR.glob('*.jpeg'))
+        + list(PICTURES_DIR.glob('*.png'))
     )
     import random
     return str(random.choice(wallpapers))
 
+
 def get_wallpaper() -> str:
     PICTURES_DIR = Path.home() / 'Pictures'
-    wallpapers = list(
-        PICTURES_DIR.glob('*.jpg')) + \
-        list(PICTURES_DIR.glob('*.jpeg')) + \
-        list(PICTURES_DIR.glob('*.png'))
+    wallpapers = (
+        list(PICTURES_DIR.glob('*.jpg'))
+        + list(PICTURES_DIR.glob('*.jpeg'))
+        + list(PICTURES_DIR.glob('*.png'))
+    )
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         for i, v in enumerate(wallpapers):
@@ -72,6 +75,7 @@ def get_wallpaper() -> str:
             print("Exiting...")
             exit()
     return str(wallpapers[index % len(wallpapers)])
+
 
 if __name__ == "__main__":
     set_wallpaper(rand_wallpaper())
