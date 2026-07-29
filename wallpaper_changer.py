@@ -1,14 +1,15 @@
 import ctypes
+import random
 import winreg
-import os
 from pathlib import Path
+
+SPI_SETDESKWALLPAPER = 20
+SPIF_UPDATEINIFILE = 0x01
+SPIF_SENDWININICHANGE = 0x02
+PICTURES_DIR = Path.home() / "Pictures"
 
 
 def set_wallpaper(image_path: str) -> None:
-    SPI_SETDESKWALLPAPER = 20
-    SPIF_UPDATEINIFILE = 0x01
-    SPIF_SENDWININICHANGE = 0x02
-
     with winreg.OpenKey(
         winreg.HKEY_CURRENT_USER, r"Control Panel\Desktop", 0, winreg.KEY_SET_VALUE
     ) as key:
@@ -32,46 +33,16 @@ def set_wallpaper(image_path: str) -> None:
     )
 
     if not result:
-        raise Exception("Failed to set wallpaper")
+        raise RuntimeError("Failed to set wallpaper")
 
 
 def rand_wallpaper() -> str:
-    PICTURES_DIR = Path.home() / "Pictures"
     wallpapers = (
         list(PICTURES_DIR.glob("*.jpg"))
         + list(PICTURES_DIR.glob("*.jpeg"))
         + list(PICTURES_DIR.glob("*.png"))
     )
-    import random
-
     return str(random.choice(wallpapers))
-
-
-def get_wallpaper() -> str:
-    PICTURES_DIR = Path.home() / "Pictures"
-    wallpapers = (
-        list(PICTURES_DIR.glob("*.jpg"))
-        + list(PICTURES_DIR.glob("*.jpeg"))
-        + list(PICTURES_DIR.glob("*.png"))
-    )
-    while True:
-        os.system("cls" if os.name == "nt" else "clear")
-        for i, v in enumerate(wallpapers):
-            print(f"{i + 1}: {v.name}")
-        print("e: Exit")
-        print("r: Random Wallpaper")
-        input_str = input("Select the wallpaper you want to set: ")
-        if input_str.isdigit():
-            index = abs(int(input_str) - 1)
-            break
-        elif input_str.lower() == "r":
-            import random
-
-            return str(random.choice(wallpapers))
-        elif input_str.lower() == "e":
-            print("Exiting...")
-            exit()
-    return str(wallpapers[index % len(wallpapers)])
 
 
 if __name__ == "__main__":
